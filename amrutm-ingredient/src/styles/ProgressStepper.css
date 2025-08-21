@@ -1,0 +1,55 @@
+:root {
+  --emerald: #22c55e;
+  --emerald-600: #16a34a;
+  --gray-200: #e5e7eb;
+  --gray-300: #d1d5db;
+  --gray-400: #9ca3af;
+  --gray-500: #6b7280;
+  --bg-muted: #f8fafc;
+}
+
+.progress-stepper {
+  user-select: none;
+}
+
+.progress-stepper .progress-step {
+  width: 40px;
+  height: 40px;
+  border-radius: 9999px;
+  border: 2px solid var(--gray-300);
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  color: var(--gray-500);
+  transition: all .2s ease;
+}
+
+.progress-stepper .progress-step.inactive {
+  border-color: var(--gray-300);
+  color: var(--gray-500);
+}
+
+.progress-stepper .progress-step.active {
+  border-color: var(--emerald);
+  color: var(--emerald-600);
+  box-shadow: 0 0 0 4px rgba(34,197,94,0.12);
+}
+
+.progress-stepper .progress-step.completed {
+  background: var(--emerald);
+  border-color: var(--emerald);
+  color: #fff;
+}
+
+.progress-stepper .progress-line {
+  width: 64px;
+  height: 2px;
+  margin: 0 12px;
+  background: var(--gray-300);
+}
+
+.progress-stepper .progress-line.completed {
+  background: var(--emerald);
+}
