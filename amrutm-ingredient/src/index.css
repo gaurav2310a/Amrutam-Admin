@@ -5,28 +5,27 @@ body {
   background-color: #E7E7E7;
 }
 
+:root {
+  --sidebar-width: 256px;
+  --header-height: 64px;
+}
+
 .sidebar {
-  width: 200px;
-  height: 701px;
-  opacity: 1;
+  position: fixed;
   top: 100px;
-  padding-top: 10px;
-  padding-right: 16px;
-  padding-bottom: 20px;
-  padding-left: 16px;
+  left: 0;
+  height: calc(100vh - var(--header-height));
+  width: var(--sidebar-width);
+  padding: 10px 16px 20px 16px;
   gap: 2px;
   border-top-right-radius: 16px;
   border-bottom-right-radius: 16px;
-
   background-color: #ffffff;
-  min-height: 100vh;
-  position: fixed;
-  left: 0;
-  top: -10;
-  width: 256px;
-  z-index: 1000;
   color: #000000 !important;
-  transition: all 0.3s ease;
+  z-index: 1040;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+  overflow-y: auto;
 }
 
 .sidebar a {
@@ -55,14 +54,51 @@ body {
   color: #000000 !important;
 }
 
-/* For the submenu items like "Ingredients List" and "Add Ingredients" */
 .sidebar .nav-item span, 
 .sidebar .nav-item a {
   color: #000000 !important;
 }
 
 .main-content {
-  margin-left: 240px;
+  margin-left: 0;
+  padding-top: var(--header-height);
+}
+
+body.sidebar-open .sidebar {
+  transform: translateX(0);
+}
+
+body.sidebar-open::after {
+  content: '';
+  position: fixed;
+  top: var(--header-height);
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 1030;
+}
+
+@media (min-width: 992px) {
+  .sidebar {
+    transform: none; /* open by default on desktop */
+  }
+  .main-content {
+    margin-left: var(--sidebar-width); /* background/content adjusted for fixed sidebar space */
+    padding-top: var(--header-height);
+  }
+  .sticky-top {
+    margin-left: 0;
+    width: 100%;
+  }
+  body.sidebar-open::after {
+    display: none;
+  }
+}
+
+/* Make sidebar narrower on very small devices */
+@media (max-width: 576px) {
+  :root { --sidebar-width: 80vw; }
 }
 
 .nav-item.active {

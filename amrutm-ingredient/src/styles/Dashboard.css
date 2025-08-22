@@ -1,9 +1,9 @@
-/* Dashboard Styles */
 .dashboard-container {
   padding: 2rem;
-  /* Match the global body background (#E7E7E7) for consistency */
   background-color: #E7E7E7;
   min-height: calc(100vh - 80px);
+  max-width: 100%;
+  overflow-x: hidden; 
 }
 
 .dashboard-header {
@@ -23,7 +23,6 @@
   margin-bottom: 0;
 }
 
-/* Quick Stats */
 .quick-stats {
   margin-bottom: 2rem;
 }
@@ -85,9 +84,20 @@
   font-weight: 600;
 }
 
-/* Dashboard Grid */
 .dashboard-grid {
   margin-bottom: 2rem;
+}
+.dashboard-container > .row,
+.dashboard-container .row {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+.dashboard-container .row > [class^="col-"],
+.dashboard-container .row > [class*=" col-"] {
+  padding-left: 0.75rem; 
+  padding-right: 0.75rem;
+  max-width: 100%;
 }
 
 .section-title {
@@ -178,7 +188,6 @@
   color: #059669;
 }
 
-/* Recent Activity */
 .recent-activity {
   margin-top: 2rem;
 }
@@ -233,7 +242,6 @@
   font-size: 0.8rem;
 }
 
-/* Color Variations */
 .bg-primary {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
 }
@@ -258,7 +266,55 @@
   background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%) !important;
 }
 
-/* Responsive Design */
+/* Badge color tokens for dashboard card stats (subtle, legible) */
+.badge.bg-primary {
+  background-color: #eef2ff !important; /* indigo-50 */
+  color: #4338ca !important;            /* indigo-700 */
+  border: 1px solid #c7d2fe !important; /* indigo-200 */
+}
+
+.badge.bg-success {
+  background-color: #ecfdf5 !important; /* emerald-50 */
+  color: #047857 !important;            /* emerald-700 */
+  border: 1px solid #a7f3d0 !important; /* emerald-200 */
+}
+
+.badge.bg-info {
+  background-color: #ecfeff !important; /* cyan-50 */
+  color: #0e7490 !important;            /* cyan-700 */
+  border: 1px solid #a5f3fc !important; /* cyan-200 */
+}
+
+.badge.bg-warning {
+  background-color: #fffbeb !important; /* amber-50 */
+  color: #b45309 !important;            /* amber-700 */
+  border: 1px solid #fcd34d !important; /* amber-300 */
+}
+
+.badge.bg-danger {
+  background-color: #fef2f2 !important; /* red-50 */
+  color: #b91c1c !important;            /* red-700 */
+  border: 1px solid #fecaca !important; /* red-200 */
+}
+
+.badge.bg-secondary {
+  background-color: #f3f4f6 !important; /* gray-100 */
+  color: #374151 !important;            /* gray-700 */
+  border: 1px solid #e5e7eb !important; /* gray-200 */
+}
+
+/* Base badge appearance */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 9999px;
+  line-height: 1;
+}
+
 @media (max-width: 768px) {
   .dashboard-container {
     padding: 1rem;

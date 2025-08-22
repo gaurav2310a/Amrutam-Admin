@@ -114,8 +114,14 @@ export function Sidebar() {
     setExpandedItem(expandedItem === id ? null : id);
   };
 
+  const closeSidebarOnMobile = () => {
+    if (document.body.classList.contains('sidebar-open')) {
+      document.body.classList.remove('sidebar-open');
+    }
+  };
+
   return (
-    <div className="sidebar bg-white border-end" style={{ width: '240px', height: '100vh', position: 'fixed', overflowY: 'auto' }}>
+    <div className="sidebar bg-white border-end" style={{ overflowY: 'auto' }}>
       <div className="p-3">
         <nav>
           {menuItems.map((item) => (
@@ -149,6 +155,7 @@ export function Sidebar() {
                           key={subItem.id}
                           to={subItem.path}
                           className="text-decoration-none"
+                          onClick={closeSidebarOnMobile}
                         >
                           <div
                             className={`d-flex align-items-center p-2 rounded small ${
@@ -173,6 +180,7 @@ export function Sidebar() {
                 <Link
                   to={item.path}
                   className="text-decoration-none"
+                  onClick={closeSidebarOnMobile}
                 >
                   <div
                     className={`nav-item d-flex align-items-center p-2 mb-1 rounded ${

@@ -2,6 +2,7 @@
   padding: 2rem;
   max-width: 1200px;
   margin: 0 auto;
+  overflow-x: hidden; 
 }
 
 .profile-form {
@@ -9,6 +10,7 @@
   padding: 2rem;
   border-radius: 8px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  min-width: 0; 
 }
 
 .profile-form h3 {
@@ -30,11 +32,13 @@
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 1.5rem;
   margin-bottom: 1.5rem;
+  min-width: 0;
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
+  min-width: 0;
 }
 
 .form-group label {
@@ -53,6 +57,7 @@
   border-radius: 6px;
   font-size: 14px;
   transition: border-color 0.2s;
+  min-width: 0; 
 }
 
 .form-group input:focus,
@@ -109,6 +114,7 @@
   object-fit: cover;
   border-radius: 50%;
   border: 3px solid #e5e7eb;
+  max-width: 100%;
 }
 
 .profile-image-placeholder {
@@ -120,6 +126,7 @@
   align-items: center;
   justify-content: center;
   background-color: #f9fafb;
+  max-width: 100%;
 }
 
 .profile-image-upload-btn {

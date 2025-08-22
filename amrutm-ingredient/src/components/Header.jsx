@@ -1,15 +1,24 @@
-import React, { useState, useEffect } from 'react';
-import { ChevronLeft, LogOut, User, Edit, ChevronDown } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { ChevronLeft, LogOut, User, Edit, ChevronDown, Menu } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 export function Header() {
   const navigate = useNavigate();
-  const [showProfileDropdown, setShowProfileDropdown] = useState(false);
   const [profileData, setProfileData] = useState(null);
   const [imgError, setImgError] = useState(false);
+  const headerRef = useRef(null);
 
   useEffect(() => {
-    // Load profile data from localStorage
+    const updateHeaderHeightVar = () => {
+      if (headerRef.current) {
+        const h = headerRef.current.offsetHeight;
+        document.documentElement.style.setProperty('--header-height', `${h}px`);
+      }
+    };
+
+    updateHeaderHeightVar();
+    window.addEventListener('resize', updateHeaderHeightVar);
+
     const loadProfileData = () => {
       const savedProfile = localStorage.getItem('userProfile');
       if (savedProfile) {
@@ -21,18 +30,15 @@ export function Header() {
       }
     };
 
-    // Load initial data
     loadProfileData();
     setImgError(false);
 
-    // Listen for storage changes
     const handleStorageChange = (e) => {
       if (e.key === 'userProfile') {
         loadProfileData();
       }
     };
 
-    // Listen for custom profile update events
     const handleProfileUpdate = () => {
       loadProfileData();
       setImgError(false);
@@ -42,30 +48,34 @@ export function Header() {
     window.addEventListener('profileUpdated', handleProfileUpdate);
 
     return () => {
+      window.removeEventListener('resize', updateHeaderHeightVar);
       window.removeEventListener('storage', handleStorageChange);
       window.removeEventListener('profileUpdated', handleProfileUpdate);
     };
   }, []);
 
   const handleLogout = () => {
-      // Clear localStorage
       localStorage.removeItem('isAuthenticated');
       localStorage.removeItem('userEmail');
-      
-      // Redirect to login page
       navigate('/');
   };
 
   const handleBack = () => {
-    // Go back one step in browser history
     navigate(-1);
   };
 
   return (
-      <div className="bg-white border-bottom p-3 sticky-top">
+      <div ref={headerRef} className="bg-white border-bottom p-3 sticky-top">
         <div className="d-flex align-items-center justify-content-between">
-          {/* Back button and breadcrumb */}
           <div className="d-flex align-items-center">
+            
+            <button
+              className="btn btn-light me-2"
+              onClick={() => document.body.classList.toggle('sidebar-open')}
+              title="Toggle Menu"
+            >
+              <Menu size={20} />
+            </button>
             <button 
               className="btn btn-light me-3"
               onClick={handleBack}
@@ -82,7 +92,6 @@ export function Header() {
             </div>
           </div>
 
-          {/* User Profile */}
           <div className="d-flex align-items-center">
             <div className="text-end me-3">
               <p className="mb-0 small fw-medium">

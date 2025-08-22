@@ -139,29 +139,29 @@ const Dashboard = () => {
   const quickStats = [
     {
       title: 'Total Revenue',
-      value: '₹2,45,000',
-      change: '+12%',
+      value: '--------',
+      change: '+--%',
       icon: TrendingUp,
       color: 'success'
     },
     {
       title: 'Active Patients',
-      value: '1,234',
-      change: '+5%',
+      value: '--------',
+      change: '+--%',
       icon: Users,
       color: 'primary'
     },
     {
       title: 'Appointments Today',
-      value: '28',
-      change: '+8%',
+      value: '--',
+      change: '+--%',
       icon: Calendar,
       color: 'info'
     },
     {
       title: 'Average Rating',
-      value: '4.8',
-      change: '+0.2',
+      value: '--',
+      change: '+--',
       icon: Star,
       color: 'warning'
     }
@@ -178,13 +178,17 @@ const Dashboard = () => {
         <Header />
         <div className="main-content">
           <div className="dashboard-container">
-            {/* Dashboard Header */}
             <div className="dashboard-header">
               <h2 className="dashboard-title">Dashboard</h2>
-              <p className="dashboard-subtitle">Welcome back! Here's what's happening with your Amrutam platform.</p>
+              <p className="dashboard-subtitle">
+                Welcome back! Here's what's happening with your Amrutam platform.
+                <br />
+                <br />
+                <br />
+                This is only visualization of dashboard.
+              </p>
             </div>
 
-            {/* Quick Stats */}
             <div className="quick-stats">
               <div className="row g-4 mb-5">
                 {quickStats.map((stat, index) => (
@@ -208,7 +212,6 @@ const Dashboard = () => {
               </div>
             </div>
 
-            {/* Dashboard Cards Grid */}
             <div className="dashboard-grid">
               <h3 className="section-title">Quick Actions</h3>
               <div className="row g-4">

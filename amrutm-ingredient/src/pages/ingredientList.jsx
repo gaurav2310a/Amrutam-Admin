@@ -3,6 +3,7 @@ import { Sidebar } from '../components/Sidebar';
 import { Header } from '../components/Header';
 import { IngredientsTable } from '../components/IngredientTable';
 
+
 const seedIngredients = [
   { id: 1, name: 'Khus Khus', description: 'A versatile herb that enhances fertility and aids in treating insomnia. It has a calming...', status: 'Active', color: '#fef3c7', icon: '🌾' },
   { id: 2, name: 'Rakta Chandan', description: 'Also known as Red Sandalwood, this herb is prized for its skin-enhancing properties. It...', status: 'Active', color: '#fecaca', icon: '🌿' },
@@ -40,6 +41,7 @@ const IngredientList = () => {
 
   return (
     <div>
+      
       <Sidebar />
       <Header />
       

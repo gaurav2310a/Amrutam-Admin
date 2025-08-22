@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';  // Add Link import
+import { useNavigate, Link } from 'react-router-dom';
 import { Sidebar } from './Sidebar';
 import { Header } from './Header';
 import '../styles/IngredientForm.css';
@@ -17,7 +17,6 @@ const IngredientForm = () => {
   const [preview, setPreview] = useState(null);
   const [error, setError] = useState('');
   
-  // Progress state
   const steps = [
     { id: 1, label: 'General information' },
     { id: 2, label: 'Benefits' },
@@ -27,21 +26,18 @@ const IngredientForm = () => {
   ];
   const [currentStep, setCurrentStep] = useState(1);
 
-  // Step 2 state: Why to use, Prakriti impact, Benefits list
   const [whyItems, setWhyItems] = useState(['']);
   const [prakriti, setPrakriti] = useState({ vata: '', kapha: '', pitta: '', vataReason: '', kaphaReason: '', pittaReason: '' });
   const [benefitItems, setBenefitItems] = useState(['']);
 
-  // Step 3 state: Ayurvedic Properties, Important Formulations, Therapeutic Uses
   const [ayurProps, setAyurProps] = useState({ rasa: '', veerya: '', guna: '', vipaka: '' });
   const [formulations, setFormulations] = useState([{ iconDataUrl: null, text: '' }]);
   const [therapeuticUses, setTherapeuticUses] = useState(['']);
 
-  // Step 4 state: Other - Plant parts, Best combined with, Geographical locations
   const plantPartOptions = ['Leaf', 'Root', 'Root Bark', 'Bark', 'Fruits', 'Juice/Extract', 'Pulp'];
   const [plantPart, setPlantPart] = useState('');
   const [plantPartDesc, setPlantPartDesc] = useState('');
-  const [plantPartsList, setPlantPartsList] = useState([]); // [{part, description}]
+  const [plantPartsList, setPlantPartsList] = useState([]);
   const [bestCombinedWith, setBestCombinedWith] = useState('');
   const [geoLocations, setGeoLocations] = useState('');
 
@@ -72,14 +68,12 @@ const IngredientForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    // Validate form
     if (currentStep === 1 && (!formData.ingredientName || !formData.scientificName || !formData.sanskritName)) {
       setError('Please fill in all required fields');
       return;
     }
 
     try {
-      // Create form data for submission (aggregate across steps)
       const submitData = new FormData();
       submitData.append('image', image);
       Object.keys(formData).forEach(key => {
@@ -98,7 +92,6 @@ const IngredientForm = () => {
       // TODO: Add your API call here
       console.log('Form submitted:', Object.fromEntries(submitData));
 
-      // Persist minimal ingredient in localStorage for the list/table view
       const colorPalette = ['#fef3c7', '#fecaca', '#fed7aa', '#bbf7d0', '#fde68a'];
       const pickColor = colorPalette[Math.floor(Math.random() * colorPalette.length)];
       const newItem = {
@@ -114,11 +107,9 @@ const IngredientForm = () => {
         const next = Array.isArray(current) ? [...current, newItem] : [newItem];
         localStorage.setItem('ingredients', JSON.stringify(next));
       } catch (err) {
-        // if parse fails, overwrite with the single new item
         localStorage.setItem('ingredients', JSON.stringify([newItem]));
       }
       
-      // Navigate back to ingredients page after successful submission
       navigate('/ingredients');
     } catch (err) {
       setError('Failed to submit form. Please try again.');
@@ -132,14 +123,12 @@ const IngredientForm = () => {
   const goNext = () => setCurrentStep((s) => Math.min(steps.length, s + 1));
   const goPrev = () => setCurrentStep((s) => Math.max(1, s - 1));
 
-  // Helpers for dynamic lists
   const updateArrayItem = (arrSetter) => (index, value) => {
     arrSetter(prev => prev.map((it, i) => i === index ? value : it));
   };
   const addArrayItem = (arrSetter) => () => arrSetter(prev => [...prev, '']);
   const removeArrayItem = (arrSetter) => (index) => arrSetter(prev => prev.filter((_, i) => i !== index));
 
-  // Formulations helpers
   const updateFormulationText = (index, value) => {
     setFormulations(prev => prev.map((f, i) => i === index ? { ...f, text: value } : f));
   };
@@ -154,12 +143,10 @@ const IngredientForm = () => {
     reader.readAsDataURL(file);
   };
 
-  // Ayurvedic props handler
   const handleAyurPropChange = (key, value) => {
     setAyurProps(prev => ({ ...prev, [key]: value }));
   };
 
-  // Plant parts handlers
   const addPlantPart = () => {
     if (!plantPart || !plantPartDesc.trim()) return;
     setPlantPartsList(prev => [...prev, { part: plantPart, description: plantPartDesc }]);
@@ -188,7 +175,6 @@ const IngredientForm = () => {
                 </ol>
               </nav>
             </div>
-            {/* Progress Stepper */}
             <ProgressStepper
               steps={[
                 { id: 1, label: 'General information' },
@@ -455,7 +441,6 @@ const IngredientForm = () => {
                 <>
                   <h3>Overview</h3>
 
-                  {/* General Information Card */}
                   <div className="section-card mb-3">
                     <h4 className="mb-3">General Information</h4>
                     {preview && (
@@ -476,7 +461,6 @@ const IngredientForm = () => {
                     </div>
                   </div>
 
-                  {/* Why to use */}
                   <div className="section-card mb-3">
                     <h4 className="mb-2">Why {formData.ingredientName || 'this ingredient'}?</h4>
                     {whyItems.filter(Boolean).length > 0 ? (
@@ -490,7 +474,6 @@ const IngredientForm = () => {
                     )}
                   </div>
 
-                  {/* Prakriti Impact */}
                   <div className="section-card mb-3">
                     <h4 className="mb-2">Prakriti Impact</h4>
                     <ul className="mb-0">
@@ -506,7 +489,6 @@ const IngredientForm = () => {
                     </ul>
                   </div>
 
-                  {/* Benefits */}
                   <div className="section-card mb-3">
                     <h4 className="mb-2">Benefits</h4>
                     {benefitItems.filter(Boolean).length > 0 ? (
@@ -520,7 +502,6 @@ const IngredientForm = () => {
                     )}
                   </div>
 
-                  {/* Ayurvedic Properties */}
                   <div className="section-card mb-3">
                     <h4 className="mb-2">Ayurvedic Properties</h4>
                     <ul className="mb-0">
@@ -531,7 +512,6 @@ const IngredientForm = () => {
                     </ul>
                   </div>
 
-                  {/* Important Formulations */}
                   <div className="section-card mb-3">
                     <h4 className="mb-2">Important Formulations</h4>
                     {formulations.filter(f => f.text || f.iconDataUrl).length > 0 ? (
@@ -550,11 +530,10 @@ const IngredientForm = () => {
                         ))}
                       </div>
                     ) : (
-                      <p className="text-muted mb-0">-</p>
+                      <p className="text-muted Mb-0">-</p>
                     )}
                   </div>
 
-                  {/* Therapeutic uses */}
                   <div className="section-card mb-3">
                     <h4 className="mb-2">Therapeutic uses</h4>
                     {therapeuticUses.filter(Boolean).length > 0 ? (
@@ -568,7 +547,6 @@ const IngredientForm = () => {
                     )}
                   </div>
 
-                  {/* Plant parts list */}
                   <div className="section-card mb-3">
                     <h4 className="mb-3">Plant parts and its purpose</h4>
                     <div className="list-table">
@@ -589,7 +567,6 @@ const IngredientForm = () => {
                     </div>
                   </div>
 
-                  {/* Best combined / Geographical locations */}
                   <div className="section-card">
                     <div className="form-group">
                       <label>Best combined with</label>
