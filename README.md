@@ -1,4 +1,4 @@
-# Amrutm Ingredient — React Frontend (Vite)
+# Amrutm — React Frontend (Vite)
 
 A React + Vite frontend for managing ingredients and a clinic-style dashboard. It includes authentication, a dashboard with sidebar navigation, ingredient CRUD flows, profile management (with image upload and validation), and informational pages (doctors, patients, appointments, specialties, coupons, concerns, referrals, customization, wallet, refund).
 
