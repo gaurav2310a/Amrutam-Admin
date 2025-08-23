@@ -156,5 +156,5 @@ Routes are defined in `src/App.jsx` using `react-router-dom`:
 
 ## License
 
-Private / internal project. Add a license if needed.
+Private / internal project.
 
